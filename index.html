@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ouro Líquido: Uma Viagem pela História Milenar do Azeite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body class="bg-gray-50">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useCallback } = React;
+
+        // Story pages based on the provided document
+        const storyPages = [
+            {
+                image: './image1.jpg',
+                text: 'No coração quente do Alentejo, entre fileiras modernas e ordenadas de oliveiras, trabalhava Irina. Os seus braços ágeis apanhavam a azeitona preta e roxa, o "ouro líquido" da sua terra.'
+            },
+            {
+                image: './image2.jpg',
+                text: 'Era a época da colheita, o clímax de um ciclo que ela conhecia desde pequena. "É apenas óleo," pensava, enquanto apanhava uma pedra invulgar, lisa e escura, que parecia um nó de madeira petrificado.'
+            },
+            {
+                image: './image3.jpg',
+                text: 'Ao tocar na pedra, um arrepio percorreu-lhe a espinha, e o ar ficou quente e denso. O cheiro a terra e azeitona intensificou-se, transformando-se num aroma a mar e a lendas antigas. O campo moderno desvaneceu-se. De repente, Irina estava a observar uma oliveira retorcida e gigantesca, com raízes que pareciam abraçar o próprio tempo. Esta não era uma árvore qualquer; era a testemunha de milénios.'
+            },
+            {
+                image: './image4.jpg',
+                text: 'A árvore falou (mas não com palavras) da sua origem longínqua na Ásia Menor, há eras. Irina viu folhas fossilizadas no chão, e depois, vislumbrou a Idade do Bronze: mãos antigas esmagavam os frutos numa pedra rústica. "Antes de existir humanidade, nós existíamos," sussurrou a memória da oliveira. "E a primeira gota de azeite foi o início de uma aliança sagrada."'
+            },
+            {
+                image: './image5.jpg',
+                text: 'A visão mudou. Ela estava agora na Grécia, assistindo à disputa entre a deusa Atena e o deus Poseidão. Poseidão ofereceu um cavalo forte, mas Atena plantou a primeira oliveira. Os cidadãos aclamaram a dádiva de Atena: óleo para iluminar, curar e alimentar. "Fui a dádiva mais valiosa," vibrou a árvore, "um símbolo de paz e abundância."'
+            },
+            {
+                image: './image6.jpg',
+                text: 'O tempo avançou. Irina viu grandes barcos fenícios com velas quadradas a sulcar o Mediterrâneo. Os navegadores transportavam ânforas cheias. O azeite não era apenas alimento; era riqueza, moeda de troca. Ela viu Hirão de Tiro a aceitar o azeite de um mercador, em troca de madeira para um Templo. O azeite unia reinos.'
+            },
+            {
+                image: './image7.jpg',
+                text: 'No cenário seguinte, Roma Antiga. Ela observou um thermae (banho romano), onde o azeite era usado para a higiene e cosmética. Depois, a escuridão da noite era cortada pelo brilho suave de uma lamparina a óleo. "Eu sou o sangue vital do quotidiano," explicou a memória. "O que ilumina, cura, perfuma e protege."'
+            },
+            {
+                image: './image8.jpg',
+                text: 'A visão ficou mais intensa, tocada por um significado mais profundo. Ela viu o grande Dilúvio a acalmar, e uma pomba a regressar à Arca de Noé, trazendo um tenro ramo de oliveira. Paz. Reconciliação. A ira divina tinha cessado. E, depois, o Jardim de Getsêmani, o "Lagar de Azeite," onde o fruto era esmagado para libertar o precioso óleo.'
+            },
+            {
+                image: './image9.jpg',
+                text: 'O cenário mudou para o seu país. Portugal medieval. Ela viu azeite, orgulhosamente português, a ser embarcado em naus das Descobertas. Multas no Código Visigótico protegiam a oliveira. Era um produto de valor estratégico, um commodities essencial do império. O azeite, agora, ligava continentes.'
+            },
+            {
+                image: './image10.jpg',
+                text: 'Com um suspiro, o ar quente do Alentejo voltou. Irina estava de novo no olival moderno, a segurar o nó de madeira petrificado. Ela olhou para o moderno lagar ao longe, um edifício de metal e tecnologia. Mas agora, não via apenas máquinas. Via a essência de todos aqueles milénios. O lagar moderno é a continuação do lagar de Getsêmani e da pedra primitiva.'
+            },
+            {
+                image: './image11.jpg',
+                text: 'Irina juntou-se à sua família e colocou as suas azeitonas na moega. Enquanto as prensas hidráulicas e as centrifugadoras libertavam o óleo verde-esmeralda, ela já não via apenas um alimento. Via a Dádiva de Atena, a moeda dos Fenícios, a luz dos Romanos, o símbolo de Paz e o legado de Portugal. Em cada gota de "ouro líquido" do Alentejo, corria toda a História.'
+            }
+        ];
+
+        const modules = [
+            {
+                id: 'modulo1',
+                title: 'Módulo 1: O Berço Milenar da Oliveira',
+                icon: '🌍',
+                color: 'from-amber-600 to-yellow-700',
+                content: {
+                    intro: 'A história de um bom azeite começa na sua fonte: a oliveira. Uma árvore que remonta à Era Terciária, anterior ao aparecimento do homem.',
+                    sections: [
+                        {
+                            title: 'Origens Ancestrais',
+                            text: 'A oliveira, na sua forma primitiva, remonta à Era Terciária, com origem na Ásia Menor, Síria e Palestina. Folhas fossilizadas datadas do Paleolítico foram encontradas por toda a bacia do Mediterrâneo. Há mais de 6 mil anos, os povos da Mesopotâmia já utilizavam o azeite.'
+                        },
+                        {
+                            title: 'Expansão pelo Mediterrâneo',
+                            text: 'Foram os fenícios que, nas suas rotas comerciais, transportaram a cultura da oliveira, semeando-a nas costas de todo o Mediterrâneo. O azeite tornou-se tão valioso que funcionava como moeda de troca.'
+                        }
+                    ],
+                    activity: {
+                        type: 'timeline',
+                        question: 'Combine os marcos históricos com os seus períodos ou localizações:',
+                        options: [
+                            { id: 1, text: 'Origem primitiva da oliveira', answer: 'B' },
+                            { id: 2, text: 'Primeiros vestígios de produção (Síria/Palestina)', answer: 'C' },
+                            { id: 3, text: 'Uso do azeite como protetor (Mesopotâmia)', answer: 'A' }
+                        ],
+                        choices: [
+                            { id: 'A', text: 'Há mais de 6 mil anos' },
+                            { id: 'B', text: 'Era Terciária' },
+                            { id: 'C', text: 'Idade do Bronze' }
+                        ]
+                    }
+                }
+            },
+            {
+                id: 'modulo2',
+                title: 'Módulo 2: As Raízes Antigas - Luz, Saúde e Comércio',
+                icon: '💡',
+                color: 'from-orange-600 to-amber-700',
+                content: {
+                    intro: 'Na antiguidade, o azeite era muito mais que alimento. Era a fonte de luz da civilização, a base da saúde e o pilar da economia.',
+                    sections: [
+                        {
+                            title: 'Três Pilares Vitais',
+                            items: [
+                                { emoji: '💡', title: 'LUZ', text: 'Principal combustível para lâmpadas de argila, iluminando casas, templos e ruas' },
+                                { emoji: '🩺', title: 'SAÚDE', text: 'Base da limpeza (com estrígil) e medicina, usado para tratar feridas e proteger a pele' },
+                                { emoji: '💰', title: 'COMÉRCIO', text: '"Ouro líquido" transportado em ânforas, base da riqueza mediterrânea' }
+                            ]
+                        },
+                        {
+                            title: 'Múltiplos Usos',
+                            text: 'Para gregos e romanos: culinária, medicação, unguento, perfume, combustível, lubrificante de alfaias e impermeabilizante de tecidos.'
+                        }
+                    ],
+                    activity: {
+                        type: 'archaeology',
+                        question: 'O Arqueólogo Inesperado',
+                        description: 'Estes dois objetos foram essenciais em Roma, mas não funcionavam sem um "combustível" que também comiam. Que combustível é esse e para que servia cada objeto?',
+                        objects: [
+                            { id: 'lucerna', name: 'Lâmpada a óleo romana (Lucerna)', use: 'iluminação' },
+                            { id: 'estrigil', name: 'Estrígil (raspador de metal)', use: 'higiene' }
+                        ],
+                        answer: 'azeite'
+                    }
+                }
+            },
+            {
+                id: 'modulo3',
+                title: 'Módulo 3: O Presente dos Deuses',
+                icon: '👑',
+                color: 'from-purple-600 to-indigo-700',
+                content: {
+                    intro: 'Para as civilizações antigas, uma árvore tão vital só poderia ter origem divina. Lendas e mitos reforçam o seu estatuto sagrado.',
+                    sections: [
+                        {
+                            title: 'Mitologia Grega',
+                            text: 'Na disputa pela cidade de Atenas, Poseidão ofereceu um cavalo forte, mas Atena presenteou os cidadãos com uma oliveira capaz de produzir óleo para iluminar, curar e alimentar. A oliveira foi considerada a dádiva mais valiosa.'
+                        },
+                        {
+                            title: 'Mitologia Romana',
+                            text: 'Rómulo e Remo, os míticos fundadores de Roma, teriam visto a luz do dia pela primeira vez debaixo dos galhos da oliveira, associando a árvore à génese do império.'
+                        },
+                        {
+                            title: 'Cosmologia Egípcia',
+                            text: 'A dádiva da olivicultura é atribuída à deusa Ísis, que a ofereceu à humanidade como símbolo de paz e abundância.'
+                        }
+                    ],
+                    activity: {
+                        type: 'quote',
+                        question: 'Complete a citação de Virgílio na Eneida:',
+                        text: 'E com um ramo de __________ o homem se purifica totalmente.',
+                        answer: 'oliveira'
+                    }
+                }
+            },
+            {
+                id: 'modulo4',
+                title: 'Módulo 4: Símbolo Sagrado nas Religiões',
+                icon: '❤️',
+                color: 'from-blue-600 to-cyan-700',
+                content: {
+                    intro: 'O azeite assume profundo significado espiritual, tornando-se símbolo sagrado nas grandes religiões monoteístas.',
+                    sections: [
+                        {
+                            title: 'Judaísmo - A Presença Divina',
+                            text: 'O azeite simbolizava a presença de Deus entre os homens. Era usado em oferendas (enquanto o fermento simbolizava o pecado), na consagração de sacerdotes e para friccionar o corpo em ocasiões festivas. A sua ausência denunciava tristeza.'
+                        },
+                        {
+                            title: 'Cristianismo - Unção e Sacrifício',
+                            items: [
+                                { emoji: '🕊️', text: 'O ramo de oliveira trazido pela pomba a Noé: símbolo universal de paz e reconciliação' },
+                                { emoji: '⛪', text: 'Getsêmani ("Lagar de Azeite"): onde Jesus foi "esmagado" pelo sacrifício, como azeitonas libertam óleo' },
+                                { emoji: '✨', text: 'Santos Óleos: consagrados na Quinta-feira Santa para batismo, crisma e unção dos enfermos' }
+                            ]
+                        },
+                        {
+                            title: 'A Unção Real',
+                            text: 'Messias (hebraico) e Cristo (grego) significam literally "O Ungido". A unção com azeite consagrava reis e sacerdotes, mostrando que sua autoridade vinha de Deus.'
+                        }
+                    ],
+                    activity: {
+                        type: 'symbols',
+                        question: 'O Fio Condutor',
+                        description: 'Há um elemento vegetal comum que une estas histórias. Qual é, e o que representa em cada cenário?',
+                        scenarios: [
+                            { id: 1, text: 'Pomba regressa à Arca de Noé', symbol: 'Paz' },
+                            { id: 2, text: 'Atena planta uma árvore em Atenas', symbol: 'Sabedoria' },
+                            { id: 3, text: 'Coroação de um rei medieval', symbol: 'Poder Divino' }
+                        ],
+                        answer: 'oliveira'
+                    }
+                }
+            },
+            {
+                id: 'modulo5',
+                title: 'Módulo 5: Da Cultura à Mesa',
+                icon: '📖',
+                color: 'from-green-600 to-emerald-700',
+                content: {
+                    intro: 'O azeite tornou-se o pilar da Dieta Mediterrânica, parte da "Tríade" com trigo e vinho, e evoluiu até à perfeição do Virgem Extra.',
+                    sections: [
+                        {
+                            title: 'O Lagar Tradicional',
+                            text: 'Mós de pedra esmagavam as azeitonas, transformando-as em pasta. Esta era espalhada em capachos de fibra e prensada para extrair o líquido. Por decantação, o azeite subia ao topo.'
+                        },
+                        {
+                            title: 'Problemas do Método Antigo',
+                            items: [
+                                { emoji: '🍂', text: 'Fermentação: Capachos difíceis de limpar causavam sabor rançoso' },
+                                { emoji: '🌬️', text: 'Oxidação: Exposição ao ar roubava aromas frutados e frescura' }
+                            ]
+                        },
+                        {
+                            title: 'Azeite Virgem Extra',
+                            text: 'O auge da qualidade moderna. Deve ter acidez inferior a 0,8% e zero defeitos na prova sensorial. Tem de apresentar frutado (fresco), podendo ter amargo e picante - sinais de qualidade e antioxidantes.'
+                        },
+                        {
+                            title: 'O Legado Português',
+                            text: 'Portugal consolidou-se como referência mundial. O Alentejo é o coração da produção nacional, com azeites de qualidade premiada. Um dos primeiros produtos exportados na Época dos Descobrimentos.'
+                        }
+                    ],
+                    activity: {
+                        type: 'problem',
+                        question: 'O Bom, o Mau e o Azeite',
+                        scenario: 'Estamos em 1500 d.C. num lagar tradicional. O nosso azeite sabe bem quando feito, mas passados dois meses tem sabor a "velho" e "húmido". O que está a estragar o sabor?',
+                        options: [
+                            { id: 'A', text: 'A temperatura da prensagem', correct: false },
+                            { id: 'B', text: 'Fermentação nos capachos e oxidação pelo ar', correct: true },
+                            { id: 'C', text: 'O tipo de azeitonas usado', correct: false },
+                            { id: 'D', text: 'A água utilizada no processo', correct: false }
+                        ]
+                    }
+                }
+            }
+        ];
+
+        const finalQuiz = [
+            {
+                id: 'q1',
+                question: 'Em qual região a oliveira, na sua forma primitiva, tem origem na Era Terciária?',
+                type: 'mcq',
+                options: [
+                    { id: 'A', text: 'Região do Cáucaso' },
+                    { id: 'B', text: 'Ásia Menor, Síria e Palestina' },
+                    { id: 'C', text: 'Bacia do Mediterrâneo Ocidental' },
+                    { id: 'D', text: 'Península Ibérica' }
+                ],
+                correct: 'B',
+                feedback: {
+                    correct: 'Correto! A origem da oliveira primitiva remonta à Era Terciária na Ásia Menor, Síria e Palestina.',
+                    incorrect: 'Embora vestígios tenham sido encontrados por toda a bacia do Mediterrâneo, a origem primitiva situa-se na Ásia Menor, Síria e Palestina.'
+                }
+            },
+            {
+                id: 'q2',
+                question: 'A acidez do azeite era percebida sensorialmente pelos romanos como indicador de qualidade?',
+                type: 'truefalse',
+                options: [
+                    { id: 'V', text: 'Verdadeiro' },
+                    { id: 'F', text: 'Falso' }
+                ],
+                correct: 'F',
+                feedback: {
+                    correct: 'Correto! A acidez do azeite só pode ser medida em laboratório, não pode ser percebida no paladar.',
+                    incorrect: 'Falso. A acidez (teor de ácidos graxos livres) não pode ser percebida sensorialmente. Só é medida em laboratório.'
+                }
+            },
+            {
+                id: 'q3',
+                question: 'Complete: Noé soltou uma pomba que retornou à arca trazendo um ramo de ___, símbolo de ___.',
+                type: 'fill',
+                answer: 'oliveira',
+                answer2: 'paz',
+                feedback: 'Correto! A pomba trouxe um ramo de oliveira, símbolo universal de paz e reconciliação.'
+            },
+            {
+                id: 'q4',
+                question: 'Qual destes NÃO era um uso conhecido do azeite por gregos e romanos?',
+                type: 'mcq',
+                options: [
+                    { id: 'A', text: 'Combustível para iluminação' },
+                    { id: 'B', text: 'Unguento ou bálsamo' },
+                    { id: 'C', text: 'Lubrificante de alfaias' },
+                    { id: 'D', text: 'Agente de limpeza doméstica para metais' }
+                ],
+                correct: 'D',
+                feedback: {
+                    correct: 'Correto! Não há menção ao uso como agente de limpeza para metais. Os usos eram: culinária, medicina, unguento, perfume, iluminação, lubrificante e impermeabilizante.',
+                    incorrect: 'As fontes mencionam claramente o azeite na culinária, medicina, como unguento, perfume, combustível, lubrificante e impermeabilizante. Não há menção a limpeza de metais.'
+                }
+            }
+        ];
+        
+        // Image component with placeholder
+        const ImageWithPlaceholder = ({ src, alt }) => {
+            const [error, setError] = useState(false);
+
+            if (error) {
+                return (
+                    <div className='text-gray-500 text-center p-8 flex flex-col items-center justify-center h-full'>
+                        <p className='text-3xl mb-2'>📷</p>
+                        <p className='text-lg mb-2'>Imagem não disponível</p>
+                        <p className='text-sm'>Ilustração da história</p>
+                    </div>
+                );
+            }
+
+            return <img src={src} alt={alt} className="w-full h-full object-cover" onError={() => setError(true)} />;
+        };
+
+        // Intro component
+        const Intro = ({ navigateTo }) => {
+            const [showVideo, setShowVideo] = useState(false);
+            const [showAudio, setShowAudio] = useState(false);
+
+            return (
+                <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 p-8 flex items-center justify-center">
+                    <div className="max-w-4xl mx-auto text-center">
+                        <h1 className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-yellow-700 mb-4">
+                            Ouro Líquido
+                        </h1>
+                        <p className="text-3xl text-gray-700 mb-2">Uma Viagem pela História Milenar do Azeite</p>
+                        <p className="text-xl text-gray-600 mb-12">Mais do que um Alimento, um Símbolo</p>
+
+                        <div className="bg-white rounded-2xl shadow-2xl p-8 mb-8 text-left">
+                            <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                                O azeite é um pilar incontornável da gastronomia mediterrânea, mas a sua influência transcende a cozinha, enraizando-se profundamente na herança cultural da humanidade. Desde a antiguidade, as suas gotas douradas têm temperado não só pratos, mas também rituais, mitos e a própria história.
+                            </p>
+                            <p className="text-lg text-gray-700 leading-relaxed">
+                                Este documento convida-o a uma viagem no tempo, explorando as origens ancestrais da oliveira, o seu papel central nas grandes civilizações da Antiguidade e o seu profundo simbolismo sagrado nas principais religiões do mundo.
+                            </p>
+                        </div>
+
+                        {/* Multimedia buttons */}
+                        <div className="flex flex-wrap justify-center gap-4 mb-8">
+                            <button
+                                onClick={() => setShowVideo(!showVideo)}
+                                className="px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white text-lg font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition flex items-center gap-2"
+                            >
+                                🎬 {showVideo ? 'Fechar Vídeo' : 'Ver Vídeo'}
+                            </button>
+                            <button
+                                onClick={() => setShowAudio(!showAudio)}
+                                className="px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white text-lg font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition flex items-center gap-2"
+                            >
+                                🎧 {showAudio ? 'Fechar Podcast' : 'Ouvir Podcast'}
+                            </button>
+                        </div>
+
+                        {/* Video player */}
+                        {showVideo && (
+                            <div className="bg-white rounded-2xl shadow-2xl p-6 mb-8">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">A História do Azeite</h3>
+                                <video 
+                                    controls 
+                                    className="w-full rounded-lg shadow-lg"
+                                    onError={(e) => {
+                                        e.target.parentElement.innerHTML = `
+                                            <div class="bg-gray-100 p-8 rounded-lg text-center">
+                                                <p class="text-gray-600 text-lg">📹 Vídeo não disponível</p>
+                                                <p class="text-gray-500 text-sm mt-2">Certifique-se de que o arquivo ./A_História_do_Azeite.mp4 está no mesmo diretório</p>
+                                            </div>
+                                        `;
+                                    }}
+                                >
+                                    <source src="./A_História_do_Azeite.mp4" type="video/mp4" />
+                                    Seu navegador não suporta vídeo HTML5.
+                                </video>
+                            </div>
+                        )}
+
+                        {/* Audio player */}
+                        {showAudio && (
+                            <div className="bg-white rounded-2xl shadow-2xl p-6 mb-8">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">Azeite: O Fio Dourado - Podcast</h3>
+                                <div className="bg-gradient-to-r from-purple-50 to-indigo-50 p-6 rounded-lg">
+                                    <audio 
+                                        controls 
+                                        className="w-full"
+                                        onError={(e) => {
+                                            e.target.parentElement.innerHTML = `
+                                                <div class="bg-gray-100 p-6 rounded-lg text-center">
+                                                    <p class="text-gray-600 text-lg">🎧 Podcast não disponível</p>
+                                                    <p class="text-gray-500 text-sm mt-2">Certifique-se de que o arquivo ./Azeite_O_Fio_Dourado.mp3 está no mesmo diretório</p>
+                                                </div>
+                                            `;
+                                        }}
+                                    >
+                                        <source src="./Azeite_O_Fio_Dourado.mp3" type="audio/mpeg" />
+                                        Seu navegador não suporta áudio HTML5.
+                                    </audio>
+                                    <p className="text-gray-600 text-sm mt-4 text-center">
+                                        🎙️ Ouça a fascinante história do azeite em formato de podcast
+                                    </p>
+                                </div>
+                            </div>
+                        )}
+
+                        <button
+                            onClick={() => navigateTo('story')}
+                            className="px-8 py-4 bg-gradient-to-r from-amber-600 to-yellow-700 text-white text-xl font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition"
+                        >
+                            Começar a Viagem
+                        </button>
+                    </div>
+                </div>
+            );
+        };
+        
+        // Story component with improved layout
+        const Story = ({ navigateTo }) => {
+            const [currentPageIndex, setCurrentPageIndex] = useState(0);
+            const page = storyPages[currentPageIndex];
+            const isLastPage = currentPageIndex === storyPages.length - 1;
+            const isCoverPage = currentPageIndex === 0;
+
+            const previousPage = () => {
+                if (currentPageIndex > 0) {
+                    setCurrentPageIndex(prev => prev - 1);
+                }
+            };
+
+            const nextPage = () => {
+                if (!isLastPage) {
+                    setCurrentPageIndex(prev => prev + 1);
+                }
+            };
+
+            // Render cover page (page 1)
+            if (isCoverPage) {
+                return (
+                    <div className="min-h-screen bg-gradient-to-br from-amber-600 via-yellow-600 to-orange-700 p-4 sm:p-8 flex items-center justify-center">
+                        <div className="max-w-5xl w-full mx-auto">
+                            <div className="bg-white/10 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden border-4 border-white/30 p-8 sm:p-12">
+                                <div className="text-center mb-8">
+                                    <div className="text-8xl mb-6">🫒</div>
+                                    <h1 className="text-5xl sm:text-6xl font-bold text-white mb-4 drop-shadow-lg">
+                                        O Ouro Líquido da Oliveira
+                                    </h1>
+                                    <div className="h-1 w-32 bg-white/50 mx-auto mb-6"></div>
+                                    <p className="text-2xl text-white/90 italic mb-8">
+                                        Uma viagem no tempo através dos olhos de Irina
+                                    </p>
+                                </div>
+                                
+                                <div className="bg-white/20 backdrop-blur-md rounded-2xl p-6 mb-8">
+                                    <p className="text-lg text-white leading-relaxed text-center">
+                                        {page.text}
+                                    </p>
+                                </div>
+                                
+                                <div className="flex justify-center">
+                                    <button 
+                                        onClick={nextPage} 
+                                        className="px-8 py-4 bg-white text-amber-700 text-xl font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition flex items-center gap-3"
+                                    >
+                                        Começar a Viagem →
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            // Render story pages (pages 2-11) with side-by-side layout
+            return (
+                <div className="min-h-screen bg-gradient-to-br from-amber-50 to-yellow-50 p-4 sm:p-8">
+                    <div className="max-w-6xl w-full mx-auto">
+                        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+                            <div className="bg-gradient-to-r from-amber-600 to-yellow-700 p-4 sm:p-6 text-white">
+                                <h2 className="text-2xl sm:text-3xl font-bold">O Ouro Líquido da Oliveira</h2>
+                                <p className="text-amber-100 mt-1 text-sm sm:text-base">Uma viagem no tempo através dos olhos de Irina</p>
+                            </div>
+                            
+                            <div className="p-4 sm:p-8">
+                                {/* Vertical side-by-side layout */}
+                                <div className="grid md:grid-cols-2 gap-6 mb-8">
+                                    {/* Image section */}
+                                    <div className="bg-gray-200 rounded-xl overflow-hidden h-64 md:h-96 flex items-center justify-center shadow-lg">
+                                        <ImageWithPlaceholder src={page.image} alt={`Página ${currentPageIndex + 1}`} />
+                                    </div>
+                                    
+                                    {/* Text section */}
+                                    <div className="flex items-center">
+                                        <div className="bg-gradient-to-br from-amber-50 to-yellow-50 p-6 rounded-xl border-2 border-amber-200 shadow-md">
+                                            <div className="text-amber-600 font-bold text-sm mb-3">
+                                                Capítulo {currentPageIndex}
+                                            </div>
+                                            <p className="text-base sm:text-lg leading-relaxed text-gray-800">
+                                                {page.text}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                {/* Navigation */}
+                                <div className="flex justify-between items-center flex-wrap gap-4 pt-4 border-t-2 border-gray-200">
+                                    <button 
+                                        onClick={previousPage} 
+                                        disabled={currentPageIndex === 0}
+                                        className="flex items-center gap-2 px-6 py-3 bg-amber-600 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-amber-700 transition shadow-md"
+                                    >
+                                        ← Anterior
+                                    </button>
+                                    
+                                    <span className="text-gray-600 font-medium">
+                                        Página {currentPageIndex + 1} de {storyPages.length}
+                                    </span>
+                                    
+                                    {!isLastPage ? (
+                                        <button 
+                                            onClick={nextPage} 
+                                            className="flex items-center gap-2 px-6 py-3 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition shadow-md"
+                                        >
+                                            Próxima →
+                                        </button>
+                                    ) : (
+                                        <button 
+                                            onClick={() => navigateTo('modules')} 
+                                            className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition shadow-md"
+                                        >
+                                            Começar Módulos →
+                                        </button>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+        
+        // Module List component
+        const ModuleList = ({ navigateTo, moduleProgress }) => {
+            return (
+                <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100 p-4 sm:p-8">
+                    <div className="max-w-6xl mx-auto">
+                        <div className="text-center mb-12">
+                            <h2 className="text-4xl font-bold text-gray-800 mb-4">Módulos de Aprendizagem</h2>
+                            <p className="text-xl text-gray-600">Escolha um módulo para começar a explorar</p>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                            {modules.map((module, idx) => (
+                                <div 
+                                    key={module.id} 
+                                    onClick={() => navigateTo('module', idx)} 
+                                    className="bg-white rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer overflow-hidden flex flex-col"
+                                >
+                                    <div className={`bg-gradient-to-r ${module.color} p-6 text-white`}>
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-3">
+                                                <span className="text-3xl">{module.icon}</span>
+                                                <span className="text-2xl font-bold">Módulo {idx + 1}</span>
+                                            </div>
+                                            {moduleProgress[module.id] && <span className="text-3xl font-bold text-white">✓</span>}
+                                        </div>
+                                    </div>
+                                    <div className="p-6 flex-grow">
+                                        <h3 className="text-xl font-bold text-gray-800 mb-3">{module.title.split(': ')[1]}</h3>
+                                        <p className="text-gray-600">{module.content.intro}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="text-center">
+                            <button 
+                                onClick={() => navigateTo('quiz')} 
+                                className="px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-700 text-white text-xl font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition inline-flex items-center gap-3"
+                            >
+                                🏆 Questionário Final
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+        
+        // Module Detail component
+        const ModuleDetail = ({ navigateTo, module, onComplete }) => {
+            const [activityAnswers, setActivityAnswers] = useState({});
+            const [textAnswer, setTextAnswer] = useState('');
+            const [showFeedback, setShowFeedback] = useState(false);
+
+            const activity = module.content.activity;
+
+            const handleTimelineAnswer = (optionId, value) => {
+                const newAnswers = { ...activityAnswers, [optionId]: value };
+                setActivityAnswers(newAnswers);
+
+                if (activity.type === 'timeline' && Object.keys(newAnswers).length === activity.options.length) {
+                    setShowFeedback(true);
+                    onComplete(module.id);
+                }
+            };
+
+            const handleTextAnswer = () => {
+                if (!textAnswer) return;
+                setShowFeedback(true);
+                onComplete(module.id);
+            };
+
+            const handleProblemAnswer = (optionId) => {
+                setTextAnswer(optionId);
+                setShowFeedback(true);
+                onComplete(module.id);
+            };
+
+            const checkActivityAnswer = () => {
+                if (activity.type === 'timeline') {
+                    return activity.options.every(opt => activityAnswers[opt.id] === opt.answer);
+                }
+                if (activity.type === 'archaeology' || activity.type === 'quote' || activity.type === 'symbols') {
+                    return textAnswer.toLowerCase().includes(activity.answer.toLowerCase());
+                }
+                if (activity.type === 'problem') {
+                    const selectedOption = activity.options.find(opt => opt.id === textAnswer);
+                    return selectedOption?.correct === true;
+                }
+                return false;
+            };
+            
+            const isCorrect = checkActivityAnswer();
+
+            const renderActivity = () => {
+                switch (activity.type) {
+                    case 'timeline':
+                        return (
+                            <>
+                                <p className="text-gray-700 mb-6 font-medium">{activity.question}</p>
+                                {activity.options.map(option => (
+                                    <div key={option.id} className="bg-white p-4 rounded-lg shadow mb-4">
+                                        <p className="font-medium mb-3">{option.id}. {option.text}</p>
+                                        <select
+                                            id={`timeline-${option.id}`}
+                                            className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                            disabled={showFeedback}
+                                            onChange={(e) => handleTimelineAnswer(option.id, e.target.value)}
+                                            value={activityAnswers[option.id] || ''}
+                                        >
+                                            <option value="">Selecione...</option>
+                                            {activity.choices.map(choice => <option key={choice.id} value={choice.id}>{choice.id}. {choice.text}</option>)}
+                                        </select>
+                                    </div>
+                                ))}
+                            </>
+                        );
+                    case 'archaeology':
+                    case 'quote':
+                    case 'symbols':
+                        return (
+                            <>
+                                {activity.type === 'archaeology' && (
+                                    <>
+                                        <p className="text-xl font-semibold mb-3">{activity.question} 🏺</p>
+                                        <p className="text-gray-700 mb-6">{activity.description}</p>
+                                        <div className="space-y-3 mb-6">
+                                            {activity.objects.map(obj => (
+                                                <div key={obj.id} className="bg-white p-4 rounded-lg shadow">
+                                                    <p className="font-medium">📜 {obj.name}</p>
+                                                    <p className="text-sm text-gray-600 mt-1">Uso: {obj.use}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </>
+                                )}
+                                {activity.type === 'quote' && (
+                                <>
+                                        <p className="text-gray-700 mb-4 font-medium">{activity.question}</p>
+                                        <p className="text-lg italic bg-white p-4 rounded-lg mb-4 border-l-4 border-purple-500">"{activity.text}"</p>
+                                </>
+                                )}
+                                {activity.type === 'symbols' && (
+                                    <>
+                                        <p className="text-xl font-semibold mb-3">{activity.question} 🕊️👑</p>
+                                        <p className="text-gray-700 mb-6">{activity.description}</p>
+                                        <div className="space-y-3 mb-6">
+                                            {activity.scenarios.map(scenario => (
+                                                <div key={scenario.id} className="bg-white p-4 rounded-lg shadow">
+                                                    <p className="font-medium">• {scenario.text}</p>
+                                                    <p className="text-sm text-blue-600 mt-1">→ Representa: {scenario.symbol}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </>
+                                )}
+                                <input
+                                    type="text"
+                                    placeholder={activity.type === 'archaeology' ? "Que combustível é esse?" : "Sua resposta..."}
+                                    className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    disabled={showFeedback}
+                                    value={textAnswer}
+                                    onChange={(e) => setTextAnswer(e.target.value)}
+                                    onBlur={handleTextAnswer}
+                                />
+                            </>
+                        );
+                    case 'problem':
+                        return (
+                            <>
+                                <p className="text-xl font-semibold mb-3">{activity.question} 🕵️‍♂️</p>
+                                <div className="bg-amber-50 p-4 rounded-lg mb-6 border-l-4 border-amber-500">
+                                    <p className="text-gray-700 italic">{activity.scenario}</p>
+                                </div>
+                                <div className="space-y-3">
+                                    {activity.options.map(option => (
+                                        <button
+                                            key={option.id}
+                                            onClick={() => handleProblemAnswer(option.id)}
+                                            disabled={showFeedback}
+                                            className={`w-full text-left p-4 bg-white rounded-lg border-2 transition disabled:opacity-70 ${
+                                                showFeedback && option.correct ? 'border-green-500 bg-green-50' :
+                                                showFeedback && !option.correct && textAnswer === option.id ? 'border-red-500 bg-red-50' :
+                                                'border-gray-300 hover:border-blue-500 hover:bg-blue-50'
+                                            }`}
+                                        >
+                                            <span className="font-bold">{option.id}.</span> {option.text}
+                                        </button>
+                                    ))}
+                                </div>
+                            </>
+                        );
+                    default:
+                        return null;
+                }
+            };
+            
+            const renderFeedback = () => {
+                if (!showFeedback) return null;
+
+                const feedbackClass = isCorrect ? 'bg-green-100 border-green-500' : 'bg-orange-100 border-orange-500';
+                const feedbackIcon = isCorrect ? '✓' : '⚠';
+                const feedbackTitle = isCorrect ? 'Muito bem! Resposta correta!' : 'Quase lá! Vamos rever...';
+                
+                let feedbackText = '';
+                if (activity.type === 'timeline') {
+                    feedbackText = 'Resposta correta: 1→B (Era Terciária), 2→C (Idade do Bronze), 3→A (Há mais de 6 mil anos). A oliveira primitiva é muito anterior ao homem, os primeiros vestígios de produção são da Idade do Bronze, e há mais de 6 mil anos os mesopotâmios já usavam azeite.';
+                } else if (activity.type === 'archaeology') {
+                    feedbackText = 'A resposta é "azeite". O azeite era o combustível essencial em Roma: alimentava as lucernas (lâmpadas) para iluminação e era usado com o estrígil para higiene corporal após os banhos e exercícios.';
+                } else if (activity.type === 'quote') {
+                    feedbackText = 'A resposta é "oliveira". Esta citação de Virgílio mostra como a oliveira era vista como um símbolo de purificação e sacralidade na cultura romana.';
+                } else if (activity.type === 'symbols') {
+                    feedbackText = 'O elemento comum é a "oliveira" (e o seu ramo). Representa paz (pomba de Noé), sabedoria e prosperidade (dádiva de Atena) e poder divino (unção real). A oliveira é um símbolo transversal de bênção divina.';
+                } else if (activity.type === 'problem') {
+                    feedbackText = 'A resposta correta é B. Os principais problemas do método antigo eram: 1) Fermentação nos capachos (difíceis de limpar, causando sabor rançoso) e 2) Oxidação pelo ar (exposição prolongada roubava frescura). O Virgem Extra moderno resolve estes problemas com processos rápidos e controlados.';
+                }
+                
+                return (
+                    <div className={`mt-6 p-6 rounded-lg border-2 ${feedbackClass}`}>
+                        <div className="flex items-start gap-3">
+                            <span className="text-2xl">{feedbackIcon}</span>
+                            <div>
+                                <p className="font-bold mb-2 text-lg">{feedbackTitle}</p>
+                                <p className="text-gray-700">{feedbackText}</p>
+                            </div>
+                        </div>
+                    </div>
+                );
+            };
+
+            return (
+                <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100 p-4 sm:p-8">
+                    <div className="max-w-4xl mx-auto">
+                        <button onClick={() => navigateTo('modules')} className="mb-6 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg flex items-center gap-2 transition">
+                            ← Voltar aos Módulos
+                        </button>
+
+                        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+                            <div className={`bg-gradient-to-r ${module.color} p-6 text-white`}>
+                                <div className="flex items-center gap-4">
+                                    <span className="text-4xl">{module.icon}</span>
+                                    <div>
+                                        <h2 className="text-3xl font-bold">{module.title}</h2>
+                                        <p className="text-white/90 mt-1">{module.content.intro}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div className="p-6 sm:p-8">
+                                {module.content.sections.map((section, idx) => (
+                                    <div key={idx} className="mb-8">
+                                        <h3 className="text-2xl font-bold text-gray-800 mb-4">{section.title}</h3>
+                                        {section.text && <p className="text-gray-700 leading-relaxed mb-4">{section.text}</p>}
+                                        {section.items && (
+                                            <div className="space-y-3">
+                                                {section.items.map((item, itemIdx) => (
+                                                    <div key={itemIdx} className="flex items-start gap-3 bg-gray-50 p-4 rounded-lg">
+                                                        {item.emoji && <span className="text-2xl mt-1">{item.emoji}</span>}
+                                                        <div className="flex-1">
+                                                            {item.title && <span className="font-bold text-gray-800">{item.title}: </span>}
+                                                            <span className="text-gray-700">{item.text}</span>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+
+                                <div className="mt-12 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 sm:p-8 border-2 border-blue-200">
+                                    <h3 className="text-2xl font-bold text-blue-900 mb-4">🎯 Atividade Interativa</h3>
+                                    {renderActivity()}
+                                    {renderFeedback()}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+        
+        // Quiz component
+        const Quiz = ({ navigateTo }) => {
+            const [quizAnswers, setQuizAnswers] = useState({});
+            const [showFeedback, setShowFeedback] = useState({});
+
+            const handleAnswer = (questionId, answer) => {
+                if (!answer) return;
+                setQuizAnswers(prev => ({ ...prev, [questionId]: answer }));
+                setShowFeedback(prev => ({ ...prev, [questionId]: true }));
+            };
+
+            const checkAnswer = (question) => {
+                const answer = quizAnswers[question.id];
+                if (!answer) return false;
+
+                if (question.type === 'fill') {
+                    return answer.toLowerCase().includes(question.answer.toLowerCase()) || 
+                           (question.answer2 && answer.toLowerCase().includes(question.answer2.toLowerCase()));
+                }
+                return answer === question.correct;
+            };
+
+            const completedQuestions = Object.keys(showFeedback).length;
+            const allQuestionsAnswered = completedQuestions === finalQuiz.length;
+            const correctAnswersCount = finalQuiz.filter(q => showFeedback[q.id] && checkAnswer(q)).length;
+            
+            const renderResult = () => {
+                if (!allQuestionsAnswered) return null;
+
+                const percentage = Math.round((correctAnswersCount / finalQuiz.length) * 100);
+                let resultClass, resultEmoji, resultTitle, resultText;
+
+                if (percentage === 100) {
+                    resultClass = 'from-green-100 to-emerald-100 border-green-500';
+                    resultEmoji = '🎉';
+                    resultTitle = 'Perfeito!';
+                    resultText = 'Excelente! Domina perfeitamente a história do azeite!';
+                } else if (percentage >= 70) {
+                    resultClass = 'from-blue-100 to-cyan-100 border-blue-500';
+                    resultEmoji = '👍';
+                    resultTitle = 'Muito bem!';
+                    resultText = 'Bom trabalho! Conhece bem a história do azeite.';
+                } else {
+                    resultClass = 'from-orange-100 to-amber-100 border-orange-500';
+                    resultEmoji = '📚';
+                    resultTitle = 'Continue a aprender!';
+                    resultText = 'Reveja os módulos para aprofundar os seus conhecimentos.';
+                }
+
+                return (
+                    <div className="text-center pt-8">
+                        <div className={`inline-block p-8 rounded-2xl bg-gradient-to-br ${resultClass} border-4`}>
+                            <div className="text-6xl mb-4">{resultEmoji}</div>
+                            <h3 className="text-3xl font-bold text-gray-800 mb-2">{resultTitle}</h3>
+                            <p className="text-xl text-gray-700 mb-4">Pontuação: {correctAnswersCount}/{finalQuiz.length} ({percentage}%)</p>
+                            <p className="text-gray-600">{resultText}</p>
+                        </div>
+                    </div>
+                );
+            };
+
+            return (
+                <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-50 p-4 sm:p-8">
+                    <div className="max-w-4xl mx-auto">
+                        <button onClick={() => navigateTo('modules')} className="mb-6 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg flex items-center gap-2 transition">
+                            ← Voltar aos Módulos
+                        </button>
+
+                        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+                            <div className="bg-gradient-to-r from-green-600 to-emerald-700 p-6 text-white">
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-4">
+                                        <span className="text-4xl">🏆</span>
+                                        <div>
+                                            <h2 className="text-3xl font-bold">Questionário Final</h2>
+                                            <p className="text-green-100 mt-1">Teste os seus conhecimentos</p>
+                                        </div>
+                                    </div>
+                                    {allQuestionsAnswered && (
+                                        <div className="text-right">
+                                            <p className="text-2xl font-bold">{correctAnswersCount}/{finalQuiz.length}</p>
+                                            <p className="text-sm text-green-100">corretas</p>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                            
+                            <div className="p-6 sm:p-8 space-y-8">
+                                {finalQuiz.map((q, idx) => {
+                                    const hasFeedback = showFeedback[q.id];
+                                    const isCorrect = hasFeedback && checkAnswer(q);
+                                    
+                                    return (
+                                        <div key={q.id} className="bg-gray-50 rounded-xl p-6 border-2 border-gray-200">
+                                            <h3 className="text-xl font-bold text-gray-800 mb-4">Questão {idx + 1}: {q.question}</h3>
+                                            
+                                            {q.type !== 'fill' && (
+                                                <div className="space-y-3 mb-4">
+                                                    {q.options.map(option => {
+                                                        let buttonClass = 'bg-white border-gray-300 hover:border-blue-500 hover:bg-blue-50';
+                                                        if (hasFeedback && option.id === q.correct) {
+                                                            buttonClass = 'bg-green-100 border-green-500';
+                                                        } else if (hasFeedback && quizAnswers[q.id] === option.id) {
+                                                            buttonClass = 'bg-red-100 border-red-500';
+                                                        }
+                                                        return (
+                                                            <button 
+                                                                key={option.id}
+                                                                onClick={() => handleAnswer(q.id, option.id)}
+                                                                disabled={hasFeedback}
+                                                                className={`w-full text-left p-4 rounded-lg border-2 transition ${buttonClass} disabled:cursor-not-allowed`}
+                                                            >
+                                                                <span className="font-bold">{option.id}.</span> {option.text}
+                                                            </button>
+                                                        )
+                                                    })}
+                                                </div>
+                                            )}
+
+                                            {q.type === 'fill' && (
+                                                <input
+                                                    type="text"
+                                                    id={`quiz-${q.id}`}
+                                                    placeholder="Digite sua resposta..."
+                                                    className="w-full p-3 border-2 border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                    disabled={hasFeedback}
+                                                    onBlur={(e) => handleAnswer(q.id, e.target.value)}
+                                                />
+                                            )}
+
+                                            {hasFeedback && (
+                                                <div className={`p-4 rounded-lg border-2 ${isCorrect ? 'bg-green-100 border-green-500' : 'bg-orange-100 border-orange-500'}`}>
+                                                    <div className="flex items-start gap-3">
+                                                        <span className="text-2xl">{isCorrect ? '✓' : '✗'}</span>
+                                                        <div>
+                                                            <p className="font-bold mb-2">{isCorrect ? 'Correto!' : 'Incorreto'}</p>
+                                                            <p className="text-gray-700">
+                                                                {q.type === 'fill' ? q.feedback : (isCorrect ? q.feedback.correct : q.feedback.incorrect)}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    );
+                                })}
+                                {renderResult()}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Main App component
+        const App = () => {
+            const [currentPage, setCurrentPage] = useState('intro');
+            const [currentModuleIndex, setCurrentModuleIndex] = useState(null);
+            const [moduleProgress, setModuleProgress] = useState({});
+
+            const navigateTo = useCallback((page, moduleIndex) => {
+                setCurrentPage(page);
+                if (moduleIndex !== undefined) {
+                    setCurrentModuleIndex(moduleIndex);
+                }
+                window.scrollTo(0, 0);
+            }, []);
+
+            const markModuleAsComplete = useCallback((moduleId) => {
+                setModuleProgress(prev => ({ ...prev, [moduleId]: true }));
+            }, []);
+
+            const renderPage = () => {
+                switch (currentPage) {
+                    case 'intro':
+                        return <Intro navigateTo={navigateTo} />;
+                    case 'story':
+                        return <Story navigateTo={navigateTo} />;
+                    case 'modules':
+                        return <ModuleList navigateTo={navigateTo} moduleProgress={moduleProgress} />;
+                    case 'module':
+                        if (currentModuleIndex !== null && modules[currentModuleIndex]) {
+                            return (
+                                <ModuleDetail
+                                    navigateTo={navigateTo}
+                                    module={modules[currentModuleIndex]}
+                                    onComplete={markModuleAsComplete}
+                                />
+                            );
+                        }
+                        return <ModuleList navigateTo={navigateTo} moduleProgress={moduleProgress} />;
+                    case 'quiz':
+                        return <Quiz navigateTo={navigateTo} />;
+                    default:
+                        return <Intro navigateTo={navigateTo} />;
+                }
+            };
+
+            return (
+                <div className="fade-in">
+                    {renderPage()}
+                </div>
+            );
+        };
+
+        // Mount the App
+        const rootElement = document.getElementById('root');
+        const root = ReactDOM.createRoot(rootElement);
+        root.render(<App />);
+    </script>
+</body>
+</html>
