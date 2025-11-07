@@ -218,14 +218,14 @@
                 <div id="video-modal" class="modal" onclick="toggleModal('video-modal')">
                     <div class="relative bg-black rounded-lg shadow-2xl overflow-hidden w-full max-w-4xl" onclick="event.stopPropagation()">
                         <button onclick="toggleModal('video-modal')" class="absolute top-2 right-2 bg-white/80 hover:bg-white text-gray-800 rounded-full w-8 h-8 flex items-center justify-center font-bold text-xl shadow-lg z-10">×</button>
-                        <video class="w-full" style="max-height: 90vh" controls autoplay><source src="./A_História_do_Azeite.mp4" type="video/mp4" />O seu navegador não suporta a tag de vídeo.</video>
+                        <video class="w-full" style="max-height: 90vh" controls><source src="./A_História_do_Azeite.mp4" type="video/mp4" />O seu navegador não suporta a tag de vídeo.</video>
                     </div>
                 </div>
                 <div id="audio-modal" class="modal" onclick="toggleModal('audio-modal')">
                     <div class="relative bg-white rounded-lg shadow-2xl p-8 w-full max-w-md text-center" onclick="event.stopPropagation()">
                         <button onclick="toggleModal('audio-modal')" class="absolute top-2 right-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-full w-8 h-8 flex items-center justify-center font-bold text-xl z-10">×</button>
                         <div class="mb-4"><span class="text-5xl">🎧</span><h3 class="text-2xl font-bold text-amber-800 mt-2">Podcast: O Fio Dourado</h3></div>
-                        <audio class="w-full" controls autoplay><source src="./Azeite_O_Fio_Dourado.mp3" type="audio/mpeg" />O seu navegador não suporta a tag de áudio.</audio>
+                        <audio class="w-full" controls><source src="./Azeite_O_Fio_Dourado.mp3" type="audio/mpeg" />O seu navegador não suporta a tag de áudio.</audio>
                     </div>
                 </div>
                 ${renderFooter()}
